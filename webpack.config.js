@@ -8,5 +8,16 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js']
+    },
+    module:{
+        rules: [
+            {
+            test: /\.m?js$/, // Test declara que extensión de archivos aplicara el loader
+            exclude: /node_modules/, // Exclude permite omitir archivos o carpetas especificas
+            use:{
+                loader:'babel-loader' // Use es un arreglo u objeto donde dices que loader aplicaras
+                }
+            }
+        ]
     }
 }
