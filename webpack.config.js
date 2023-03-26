@@ -8,6 +8,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
+        assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
     resolve: {
         extensions: ['.js']
@@ -32,6 +33,26 @@ module.exports = {
             {
                 test: /\.png/,
                 type: 'asset/resource'
+            },
+            {
+                /*test: /\.(woff|woff2)$/,
+                use:{
+                    loader: "url-loader",
+                    options: {// O LE PASAMOS UN BOOLEANOS TRUE O FALSE
+                        limit: false, // Habilita o deshabilita la transformación de archivos en base64
+                        mimetype:"aplication/font-woff",// Especifica el tipo MIME con el que se alineará el archivo. // Los MIME Types (Multipurpose Internet Mail Extensions)
+                        // son la manera standard de mandar contenido a través de la red.
+                        name:"[name].[ext]", // EL NOMBRE INICIAL DEL ARCHIVO + SU EXTENSIÓN // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria 
+                        outputPath: "./assets/fonts/",// EL DIRECTORIO DE SALIDA (SIN COMPLICACIONES)
+                        publicPath: "./assets/fonts/",// EL DIRECTORIO PUBLICO (SIN COMPLICACIONES)
+                        esModule: false, // AVISAR EXPLICITAMENTE SI ES UN MODULO
+                    }
+                }*/
+                test: /\.(woff|woff2)$/i,  // Tipos de fuentes a incluir
+                type: 'asset/resource',  // Tipo de módulo a usar (este mismo puede ser usado para archivos de imágenes)
+                generator: {
+                filename: './assets/fonts/[hash][ext][query]',  // Directorio de salida
+                },
             }
         ]
     },
