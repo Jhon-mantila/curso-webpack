@@ -1,13 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require ('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const Terserplugin = require('terser-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js',
+        filename: '[name].[contenthash].js',
         assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
     resolve: {
@@ -48,6 +50,7 @@ module.exports = {
                         esModule: false, // AVISAR EXPLICITAMENTE SI ES UN MODULO
                     }
                 }*/
+                //apartir de webpack 5.
                 test: /\.(woff|woff2)$/i,  // Tipos de fuentes a incluir
                 type: 'asset/resource',  // Tipo de módulo a usar (este mismo puede ser usado para archivos de imágenes)
                 generator: {
@@ -62,7 +65,9 @@ module.exports = {
             template: './public/index.html',
             filename: './index.html'
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css'
+        }),
         new CopyPlugin({
             patterns:[
                 {
@@ -71,5 +76,12 @@ module.exports = {
                 }
             ]
         })
-    ]
+    ],
+    optimization: {
+        minimize: true,
+        minimizer:[
+            new CssMinimizerPlugin(),
+            new Terserplugin(),
+        ]
+    }
 }
