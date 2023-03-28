@@ -5,13 +5,16 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const Terserplugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+//const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[contenthash].js',
-        assetModuleFilename: 'assets/images/[hash][ext][query]'
+        //filename: '[name].[contenthash].js',
+        filename: '[name].bundle.js',
+        //assetModuleFilename: 'assets/images/[hash][ext][query]',
+        clean: true,
     },
     resolve: {
         extensions: ['.js'],
@@ -84,6 +87,7 @@ module.exports = {
             ]
         }),
         new Dotenv(),
+        //new CleanWebpackPlugin(),
     ],
     optimization: {
         minimize: true,
