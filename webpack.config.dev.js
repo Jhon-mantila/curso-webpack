@@ -14,6 +14,7 @@ module.exports = {
     },
     mode: 'development',
     watch: false,
+    devtool: 'source-map', // permite generar un mapa del codigo lo genera en formato json
     resolve: {
         extensions: ['.js'],
         alias: {
